@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites</title>
+
+<link rel="stylesheet" href="notes.css">
+</head>
+
+<body>
+
+<h2 style="padding:20px;color:white;">⭐ Your Favorites</h2>
+
+<div class="notes-grid" id="favContainer" style="padding:20px;"></div>
+
+<script>
+
+function getFav(){
+return JSON.parse(localStorage.getItem("favorites")) || [];
+}
+
+function saveFav(data){
+localStorage.setItem("favorites", JSON.stringify(data));
+}
+
+function removeFav(name){
+let fav = getFav().filter(x => x.name !== name);
+saveFav(fav);
+loadFav();
+}
+
+function loadFav(){
+
+let fav = getFav();
+
+/* 🔥 SAFETY CLEAN — broken data delete */
+fav = fav.filter(x => x && x.name);
+saveFav(fav);
+
+let box = document.getElementById("favContainer");
+box.innerHTML = "";
+
+if(fav.length === 0){
+box.innerHTML = "<p style='color:white'>No favorites yet 😢</p>";
+return;
+}
+
+fav.forEach(n => {
+
+box.innerHTML += `
+<div class="card">
+<h3>${n.name}</h3>
+<p>${n.subject}</p>
+
+<a href="${n.file}" download>
+<button>Download</button>
+</a>
+
+<button onclick="removeFav('${n.name}')">Remove</button>
+</div>
+`;
+
+});
+}
+
+loadFav();
+
+</script>
+
+</body>
+</html>

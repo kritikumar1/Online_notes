@@ -1,0 +1,106 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#1e3a8a,#2563eb);
+min-height:100vh;
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:#0f2c59;
+color:white;
+}
+
+nav a{
+margin:0 12px;
+color:white;
+text-decoration:none;
+opacity:.8;
+}
+
+nav a.active,
+nav a:hover{
+opacity:1;
+}
+
+/* REPO SECTION */
+.repo{
+padding:60px;
+text-align:center;
+background:#f5f7fb;
+border-top-left-radius:25px;
+}
+
+.repo h1{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.repo p{
+color:#666;
+margin-bottom:30px;
+}
+
+/* GRID */
+.repo-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+/* CARD */
+.repo-card{
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+font-size:40px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.repo-card h3{
+font-size:18px;
+margin:10px 0 5px;
+}
+
+.repo-card span{
+font-size:14px;
+color:#666;
+}
+
+.repo-card:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 40px rgba(37,99,235,0.3);
+}
+
+/* FOOTER */
+footer{
+background:#0f2c59;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+font-size:22px;
+font-weight:700;
+color:white;
+}
+
+.logo img{
+width:45px;
+margin-right:8px;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notes Dashboard</title>
+
+<link rel="stylesheet" href="notes.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+<aside class="sidebar">
+<h2 class="brand">
+<img src="notexeria.jpg" alt="logo">
+Notexia
+</h2>
+
+<a class="active" href="index.php">🏠 Home</a>
+<a href="favorites.html">❤️ Favorites</a>
+<a href="repository.html">📂 Repository</a>
+<a href="upload.html">⬆ Upload</a>
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+<input type="text" id="searchInput" placeholder="Search notes...">
+</header>
+
+<section class="notes-grid" id="notesContainer"></section>
+
+</main>
+
+</div>
+
+<script>
+
+const notes = [
+{name:"Data Structures", subject:"Computer", file:"files/ds.pdf"},
+{name:"Thermodynamics", subject:"Mechanical", file:"files/thermo.pdf"},
+{name:"Operating System", subject:"CS", file:"files/os.pdf"},
+{name:"Mathematics II", subject:"Engineering", file:"files/math.pdf"}
+];
+
+function getFav(){
+return JSON.parse(localStorage.getItem("favorites")) || [];
+}
+
+function saveFav(data){
+localStorage.setItem("favorites", JSON.stringify(data));
+}
+
+function toggleFav(index){
+
+let fav = getFav();
+let note = notes[index];
+
+let exist = fav.find(x => x.name === note.name);
+
+if(exist){
+fav = fav.filter(x => x.name !== note.name);
+}else{
+fav.push(note);
+}
+
+saveFav(fav);
+renderNotes();
+}
+
+function renderNotes(){
+
+let box = document.getElementById("notesContainer");
+box.innerHTML = "";
+
+let fav = getFav();
+
+notes.forEach((n, i) => {
+
+let active = fav.find(x => x.name === n.name);
+let heart = active ? "❤️" : "🤍";
+
+let card = document.createElement("div");
+card.className = "card note";
+
+card.innerHTML = `
+<h3>
+${n.name}
+<span class="heart" onclick="toggleFav(${i})">${heart}</span>
+</h3>
+
+<p>${n.subject}</p>
+
+<a href="${n.file}" download class="download-btn">
+Download
+</a>
+`;
+
+box.appendChild(card);
+
+});
+}
+
+renderNotes();
+
+document.getElementById("searchInput").addEventListener("keyup", function(){
+let value = this.value.toLowerCase();
+
+document.querySelectorAll(".note").forEach(note=>{
+note.style.display =
+note.innerText.toLowerCase().includes(value) ? "flex" : "none";
+});
+});
+
+</script>
+
+</body>
+</html>
